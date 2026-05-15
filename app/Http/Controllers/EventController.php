@@ -27,11 +27,21 @@ class EventController extends Controller
      */
     public function categoriesPage()
     {
-        $categories = Category::with('subcategories')->get();
+		$categories = Category::with('subCategories')->get();
 
         return view('events.categories', compact('categories'));
     }
+  
+ public function nominateCategory($slug)
+{
+    $category = Category::where('slug', $slug)
+        ->with('subcategories')
+        ->firstOrFail();
 
+    $categories = Category::with('subcategories')->get();
+
+    return view('events.nomination', compact('category', 'categories'));
+}
     /**
      * List all upcoming events.
      */
@@ -45,22 +55,12 @@ class EventController extends Controller
 
         return view('events.index', compact('events', 'featuredEvent'));
     }
-
-    /**
-     * Show a single event detail.
-     */
+  
+ 
     public function show($id)
     {
         $event = Event::findOrFail($id);
         return view('events.show', compact('event'));
     }
 
-    /**
-     * Show nomination page for a specific category (slug-based).
-     */
-    public function nominateCategory($slug)
-    {
-        $category = Category::where('slug', $slug)->with('subcategories')->firstOrFail();
-        return view('nomination', compact('category'));
-    }
 }

@@ -1,26 +1,14 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Subcategory extends Model
 {
-    use HasFactory;
+    protected $table = 'sub_categories'; // ← add this line
 
-    /**
-     * The attributes that are mass assignable.
-     */
-    protected $fillable = [
-        'category_id',
-        'name',
-        'slug',
-    ];
+    protected $fillable = ['category_id', 'name', 'slug'];
 
-    /**
-     * Get the category that owns the subcategory.
-     */
     public function category()
     {
         return $this->belongsTo(Category::class);

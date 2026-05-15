@@ -1,32 +1,33 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('subcategories', function (Blueprint $table) {
-            $table->id();
-            // This links the subcategory to a category in your 'categories' table
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            
-            $table->string('name'); // e.g., "Best Tech Startup"
-            $table->string('slug')->unique(); // e.g., "best-tech-startup"
-            $table->timestamps();
+        // Add slug column if it doesn't exist yet
+        Schema::table('sub_categories', function (Blueprint $table) {
+            if (!Schema::hasColumn('sub_categories', 'slug')) {
+                $table->string('slug')->unique()->after('name');
+            }
+        });
+
+        Schema::table('categories', function (Blueprint $table) {
+            if (!Schema::hasColumn('categories', 'slug')) {
+                $table->string('slug')->unique()->after('name');
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('subcategories');
+        Schema::table('sub_categories', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
+        Schema::table('categories', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 };

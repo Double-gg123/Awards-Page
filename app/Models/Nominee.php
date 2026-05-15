@@ -9,12 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Nominee extends Model
 {
     protected $fillable = [
-        'name', 
-        'category_id', 
-        'sub_category_id', 
-        'social_handle', 
-        'reason', 
-        'image'
+        'name',
+        'category_id',
+        'sub_category_id',
+        'reason',
+        'image',
+        'socials',       // ← replaces 'social_handle'
+    ];
+
+    protected $casts = [
+        'socials' => 'array',   // auto encode/decode JSON
     ];
 
     public function category(): BelongsTo
@@ -27,13 +31,11 @@ class Nominee extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
-    // This is for the nomination records
     public function nominations(): HasMany
     {
         return $this->hasMany(Nomination::class);
     }
 
-    // ADD THIS for the Dashboard Controller to work
     public function votes(): HasMany
     {
         return $this->hasMany(Vote::class);

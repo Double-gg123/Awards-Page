@@ -1,238 +1,337 @@
+# resources/views/about.blade.php
+
+```blade
 @extends('layouts.app')
 
 @section('content')
 
-<!-- HERO BANNER -->
+<div class="bg-[#050816] text-white overflow-hidden">
 
-<section class="relative py-14 overflow-hidden bg-midnightblue rounded-2xl">
-    <div class="container mx-auto px-6 md:flex md:items-center md:justify-between gap-10">
+    {{-- HERO SECTION --}}
+    <section class="relative min-h-screen flex items-center justify-center px-6 py-24 overflow-hidden">
 
-        <!-- LEFT IMAGE (Trophy with celebration) -->
-        <div class="md:w-1/2 flex justify-center md:justify-start">
-            <img src="{{ asset('images/trophy.png') }}" 
-                 alt="Celebratory Trophy" 
-                 class="w-72 md:w-80 transform -rotate-6 shadow-2xl animate-float">
+        {{-- Glow Effects --}}
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-500/10 blur-[140px] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[600px] h-[600px] bg-yellow-400/10 blur-[160px] rounded-full"></div>
         </div>
 
-        <!-- RIGHT TEXT -->
-        <div class="md:w-1/2 text-center md:text-left space-y-6 text-white">
-            <h1 class="text-4xl md:text-5xl font-bold text-yellow-400 leading-tight">
-                Celebrate Excellence <br>
-                At Our Award Events
-            </h1>
-            <p class="text-gray-200 text-lg md:text-xl max-w-lg">
-                Join us as we honor outstanding achievements, innovation, 
-                and leadership across industries with prestigious awards.
-            </p>
-            <a href="#about" 
-               class="inline-block bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition duration-300 shadow-lg">
-               Learn More
-            </a>
-        </div>
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
 
-    </div>
+            {{-- LEFT CONTENT --}}
+            <div>
+                <p class="uppercase tracking-[0.4em] text-amber-400 text-xs font-black mb-6">
+                    Briwnet Awards Platform
+                </p>
 
-    <!-- Background glow circle -->
-    <div class="absolute -top-20 -right-20 w-72 h-72 bg-yellow-400 opacity-10 rounded-full blur-3xl"></div>
-</section>
-<!-- ABOUT & WHY US SECTION -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-6 md:flex md:items-start md:gap-10 flex-col md:flex-row">
-        
-        <!-- LEFT: Image -->
-        <div class="md:w-1/2 mb-10 md:mb-0">
-    <img src="{{ asset('images/about-hero.png') }}" 
-         alt="About Us" 
-         class="w-full h-64 md:h-80 rounded-2xl shadow-2xl object-cover">
-</div>
+                <h1 class="text-5xl md:text-7xl font-black leading-[0.95] tracking-tight mb-8 uppercase">
+                    Celebrating
+                    <span class="italic font-serif text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600">
+                        Excellence
+                    </span>
+                    Across Africa
+                </h1>
 
-        <!-- RIGHT: About & Why Us -->
-        <div class="md:w-1/2 space-y-6">
-            <h2 class="text-3xl font-bold text-yellow-400">About Us</h2>
-            <p class="text-gray-800 leading-relaxed">
-                Our award platform recognizes the finest achievements in diverse sectors, 
-                honoring individuals, teams, and organizations that inspire progress and excellence. 
-                Through annual ceremonies and events, we foster networking, innovation, and global recognition.
-            </p>
+                <p class="text-slate-300 text-lg leading-relaxed max-w-2xl mb-10">
+                    Briwnet Awards is a premium digital nomination platform built to recognize outstanding individuals,
+                    creators, businesses, innovators, entertainers, community leaders, and rising stars shaping the future.
+                    We provide a transparent and modern nomination experience designed to spotlight talent, influence,
+                    creativity, leadership, and impact.
+                </p>
 
-            <h3 class="text-2xl font-semibold text-yellow-400 mt-6">Why Choose Us?</h3>
-            <p class="text-gray-800 leading-relaxed">
-                We ensure transparency, credibility, and prestige in awarding. Our judges are industry leaders, 
-                our events are meticulously organized, and every winner is celebrated with dignity and grandeur.
-            </p>
-        </div>
-    </div>
-</section>
+                <div class="flex flex-wrap gap-5">
+                    <a href="{{ route('nomination.create') }}"
+                       class="px-10 py-5 rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black uppercase tracking-[0.3em] text-xs hover:scale-105 transition-all duration-300">
+                        Start Nomination
+                    </a>
 
-<!-- MAJOR AWARDS TILES (3x3) -->
-<section class="py-16 bg-gradient-to-b from-[#f7f7f7] to-[#ffffff]">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-yellow-400">Major Awards This Season</h2>
-            <p class="text-gray-800 mt-3">Recognizing the outstanding achievers of the season.</p>
-        </div>
-
-        <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-            @for($i = 1; $i <= 9; $i++)
-            <div class="glass-tile overflow-hidden hover:scale-105 transition duration-300">
-                <img src="{{ asset('images/award'.$i.'.jpg') }}" alt="Award {{ $i }}" class="w-full h-56 object-cover">
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-semibold text-yellow-400 mb-2">Award {{ $i }}</h3>
-                    <p class="text-gray-200">Description of Award {{ $i }} goes here.</p>
-                </div>
-            </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<!-- FEATURED AWARDEES -->
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-yellow-400">Featured Awardees</h2>
-            <p class="text-gray-800 mt-3">Highlighting some of the remarkable achievers honored by our awards.</p>
-        </div>
-
-        <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-            @for($i = 1; $i <= 6; $i++)
-            <div class="glass-tile overflow-hidden hover:scale-105 transition duration-300">
-                <img src="{{ asset('images/awardee'.$i.'.jpg') }}" alt="Awardee {{ $i }}" class="w-full h-56 object-cover">
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-semibold text-yellow-400 mb-2">Awardee {{ $i }}</h3>
-                    <p class="text-gray-200">Outstanding contributions in their field.</p>
-                </div>
-            </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<!-- EXTRA SECTION: AWARD INSIGHTS -->
-<section class="relative py-20 bg-gradient-to-b from-[#0d2c6c] to-[#0A1F44] overflow-hidden">
-
-    <!-- Soft Glow Background -->
-    <div class="absolute top-0 left-1/4 w-72 h-72 bg-yellow-400/20 rounded-full blur-[120px] animate-pulse"></div>
-    <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-cyan-400/20 rounded-full blur-[120px] animate-pulse delay-1000"></div>
-
-    <div class="relative container mx-auto px-6">
-        
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-
-            <!-- TEXT SIDE -->
-            <div class="opacity-0 translate-y-10 transition-all duration-1000 ease-out award-animate">
-                
-                <div class="backdrop-blur-xl bg-white/10 border border-white/20 p-10 rounded-3xl shadow-2xl">
-                    
-                    <h2 class="text-3xl md:text-4xl font-bold text-yellow-400 mb-6">
-                        Award Insights & Trends
-                    </h2>
-
-                    <p class="text-gray-200 leading-relaxed">
-                        Explore the latest trends in award recognition, emerging achievers to watch,
-                        and strategies for maximizing the impact of award ceremonies. 
-                        Stay inspired and connected with the world of excellence.
-                    </p>
-
-                    <a href="#events"
-                       class="inline-block mt-8 bg-yellow-400 text-black px-6 py-3 rounded-full font-semibold 
-                              hover:scale-105 transition duration-300 shadow-lg">
-                        Learn More
+                    <a href="#process"
+                       class="px-10 py-5 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl uppercase tracking-[0.3em] text-xs font-black hover:border-amber-500/40 transition-all duration-300">
+                        Learn Process
                     </a>
                 </div>
-
             </div>
 
-            <!-- IMAGE SIDE -->
-            <div class="flex justify-center opacity-0 translate-y-10 transition-all duration-1000 delay-200 ease-out award-animate">
-                
-                <div class="relative backdrop-blur-xl bg-white/10 border border-white/20 
-                            rounded-3xl p-5 shadow-2xl max-w-md w-full">
-                    
-                    <img src="{{ asset('images/awards.png') }}" 
-                         alt="Award Insights"
-                         class="w-full h-64 md:h-72 object-cover rounded-2xl 
-                                transition-transform duration-700 hover:scale-105">
+            {{-- RIGHT PANEL --}}
+            <div class="relative">
+
+                <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-yellow-500/5 blur-3xl rounded-[3rem]"></div>
+
+                <div class="relative bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[3rem] p-10 md:p-14 shadow-2xl">
+
+                    <div class="grid grid-cols-2 gap-6">
+
+                        <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                            <h3 class="text-4xl font-black text-amber-400 mb-2">10K+</h3>
+                            <p class="text-slate-400 text-sm uppercase tracking-wider">
+                                Nominations Submitted
+                            </p>
+                        </div>
+
+                        <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                            <h3 class="text-4xl font-black text-amber-400 mb-2">250+</h3>
+                            <p class="text-slate-400 text-sm uppercase tracking-wider">
+                                Award Categories
+                            </p>
+                        </div>
+
+                        <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                            <h3 class="text-4xl font-black text-amber-400 mb-2">100%</h3>
+                            <p class="text-slate-400 text-sm uppercase tracking-wider">
+                                Digital Experience
+                            </p>
+                        </div>
+
+                        <div class="bg-white/5 border border-white/10 rounded-3xl p-6">
+                            <h3 class="text-4xl font-black text-amber-400 mb-2">24/7</h3>
+                            <p class="text-slate-400 text-sm uppercase tracking-wider">
+                                Platform Access
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-8 p-6 rounded-3xl bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border border-amber-500/20">
+                        <p class="text-slate-200 leading-relaxed">
+                            Our mission is to build a trusted recognition ecosystem where achievements are discovered,
+                            verified, celebrated, and amplified globally.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    {{-- ABOUT BRIWNET --}}
+    <section class="py-24 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+
+            <div>
+                <p class="uppercase tracking-[0.3em] text-amber-400 text-xs font-black mb-4">
+                    About Briwnet
+                </p>
+
+                <h2 class="text-4xl md:text-6xl font-black uppercase leading-tight mb-8">
+                    A Modern Platform
+                    <span class="italic font-serif text-amber-400">For Recognition</span>
+                </h2>
+
+                <p class="text-slate-400 leading-relaxed mb-6 text-lg">
+                    Briwnet is a technology-driven digital ecosystem focused on empowering visibility,
+                    celebrating achievements, and connecting communities through recognition.
+                    The platform combines innovation, design, credibility, and accessibility to create
+                    a seamless nomination and awards experience.
+                </p>
+
+                <p class="text-slate-400 leading-relaxed text-lg">
+                    From entrepreneurs and influencers to creatives, brands, students, public figures,
+                    and social impact leaders, Briwnet Awards provides a stage where meaningful contributions
+                    are acknowledged and celebrated.
+                </p>
+            </div>
+
+            <div class="grid gap-6">
+
+                <div class="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-amber-500/30 transition-all duration-300">
+                    <h3 class="text-2xl font-black mb-4 text-amber-400">Innovation</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Built with modern digital systems to simplify nominations, verification,
+                        tracking, and participant engagement.
+                    </p>
+                </div>
+
+                <div class="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-amber-500/30 transition-all duration-300">
+                    <h3 class="text-2xl font-black mb-4 text-amber-400">Transparency</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Every nomination follows structured review and validation processes to ensure fairness and credibility.
+                    </p>
+                </div>
+
+                <div class="bg-white/5 border border-white/10 rounded-[2rem] p-8 hover:border-amber-500/30 transition-all duration-300">
+                    <h3 class="text-2xl font-black mb-4 text-amber-400">Global Reach</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Briwnet Awards promotes talents and achievements to local and international audiences.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    {{-- NOMINATION PROCESS --}}
+    <section id="process" class="py-24 px-6 bg-white/[0.02] border-y border-white/5">
+
+        <div class="max-w-7xl mx-auto">
+
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <p class="uppercase tracking-[0.3em] text-amber-400 text-xs font-black mb-4">
+                    Nomination Process
+                </p>
+
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 leading-tight">
+                    How The
+                    <span class="italic font-serif text-amber-400">Process Works</span>
+                </h2>
+
+                <p class="text-slate-400 text-lg leading-relaxed">
+                    Our streamlined digital workflow ensures every nomination is properly submitted,
+                    reviewed, and managed professionally.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+
+                <div class="relative bg-white/5 border border-white/10 rounded-[2rem] p-10">
+                    <div class="text-7xl font-black text-white/5 absolute top-4 right-6">01</div>
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black mb-8">
+                        ✓
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">Submit Nomination</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Users submit nominee details, categories, social handles, achievements,
+                        and supporting information through the platform.
+                    </p>
+                </div>
+
+                <div class="relative bg-white/5 border border-white/10 rounded-[2rem] p-10">
+                    <div class="text-7xl font-black text-white/5 absolute top-4 right-6">02</div>
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black mb-8">
+                        ★
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">Verification</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        The Briwnet team reviews submissions for authenticity, category alignment,
+                        and compliance with nomination guidelines.
+                    </p>
+                </div>
+
+                <div class="relative bg-white/5 border border-white/10 rounded-[2rem] p-10">
+                    <div class="text-7xl font-black text-white/5 absolute top-4 right-6">03</div>
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black mb-8">
+                        ↑
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">Public Visibility</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Approved nominees gain visibility across the platform, helping audiences discover emerging excellence.
+                    </p>
+                </div>
+
+                <div class="relative bg-white/5 border border-white/10 rounded-[2rem] p-10">
+                    <div class="text-7xl font-black text-white/5 absolute top-4 right-6">04</div>
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-2xl font-black mb-8">
+                        🏆
+                    </div>
+                    <h3 class="text-2xl font-black mb-4">Recognition</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Finalists and winners receive recognition, visibility, prestige, and opportunities for growth.
+                    </p>
                 </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- Scroll Animation Script -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const elements = document.querySelectorAll(".award-animate");
+    {{-- WHY NOMINATE --}}
+    <section class="py-24 px-6">
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.remove("opacity-0", "translate-y-10");
-                entry.target.classList.add("opacity-100", "translate-y-0");
-            }
-        });
-    }, { threshold: 0.3 });
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
-    elements.forEach(el => observer.observe(el));
-});
-</script>
+            <div class="bg-white/5 border border-white/10 rounded-[3rem] p-10 md:p-14">
+                <p class="uppercase tracking-[0.3em] text-amber-400 text-xs font-black mb-5">
+                    Why Participate
+                </p>
+
+                <h2 class="text-4xl md:text-5xl font-black uppercase leading-tight mb-8">
+                    Recognition That
+                    <span class="italic font-serif text-amber-400">Creates Impact</span>
+                </h2>
+
+                <div class="space-y-6 text-slate-400 leading-relaxed text-lg">
+                    <p>
+                        Briwnet Awards helps individuals and brands build visibility, credibility,
+                        authority, and audience trust.
+                    </p>
+
+                    <p>
+                        Being nominated positions participants among recognized leaders,
+                        innovators, creators, and changemakers within their industries.
+                    </p>
+
+                    <p>
+                        Our digital-first platform ensures accessibility, smooth participation,
+                        and a professional nomination experience for every user.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid gap-6">
+
+                <div class="bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border border-amber-500/20 rounded-[2rem] p-8">
+                    <h3 class="text-2xl font-black mb-3 text-amber-400">Brand Visibility</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Increase audience awareness and strengthen digital presence.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border border-amber-500/20 rounded-[2rem] p-8">
+                    <h3 class="text-2xl font-black mb-3 text-amber-400">Professional Recognition</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Gain recognition from audiences, communities, and industry peers.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border border-amber-500/20 rounded-[2rem] p-8">
+                    <h3 class="text-2xl font-black mb-3 text-amber-400">Community Impact</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Celebrate positive contributions and inspire future generations.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    {{-- CTA --}}
+    <section class="px-6 pb-24">
+        <div class="max-w-6xl mx-auto bg-gradient-to-r from-yellow-500/10 to-amber-500/5 border border-amber-500/20 rounded-[3rem] p-10 md:p-20 text-center relative overflow-hidden">
+
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-[-30%] left-[20%] w-[400px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full"></div>
+            </div>
+
+            <div class="relative z-10">
+                <p class="uppercase tracking-[0.3em] text-amber-400 text-xs font-black mb-5">
+                    Start Today
+                </p>
+
+                <h2 class="text-4xl md:text-6xl font-black uppercase leading-tight mb-8">
+                    Ready To Nominate
+                    <span class="italic font-serif text-amber-400">A Star?</span>
+                </h2>
+
+                <p class="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed mb-10">
+                    Submit your nomination today and help celebrate individuals and brands making a real impact.
+                </p>
+
+                <a href="{{ route('nomination.create') }}"
+                   class="inline-flex items-center justify-center px-12 py-5 rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-black uppercase tracking-[0.3em] text-xs hover:scale-105 transition-all duration-300">
+                    Start Nomination
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+</div>
 
 @endsection
-
-@push('styles')
-<style>
-    .bg-midnightblue {
-    background-color: #0b1c2d;
-}
-
-/* Floating animation for trophy */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-.animate-float {
-    animation: float 4s ease-in-out infinite;
-}
-/* GLASS TILE EFFECT */
-.glass-tile {
-    backdrop-filter: blur(16px);
-    background: rgba(11,28,45,0.85); /* midnight blue glass */
-    border: 1px solid rgba(255,215,0,0.25);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    border-radius: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-tile:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-}
-
-/* FLOATING ANIMATION (if any hero images) */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-.animate-float {
-    animation: float 4s ease-in-out infinite;
-}
-
-/* TEXT COLORS */
-.glass-tile h3 { color: #FFD700; }
-.glass-tile p { color: #e0e0e0; }
-
-/* RESPONSIVE GRIDS */
-@media (max-width: 768px) {
-    .grid { grid-template-columns: 1fr !important; }
-    .md\\:flex { flex-direction: column !important; }
-}
-</style>
-@endpush

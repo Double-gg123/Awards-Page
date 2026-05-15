@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NominationController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\{
     DashboardController,
     AdminEventController,
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\{
     AdminNomineeController,
     CategoryController
 };
+use App\Http\Controllers\AccountAjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,6 @@ use App\Http\Controllers\Admin\{
 */
 Route::get('/login', fn() => redirect()->route('admin.login'))->name('login');
 Route::get('/admin', fn() => redirect()->route('admin.login'));
-
 Route::get('/admin/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
@@ -30,10 +31,8 @@ Route::post('/admin/logout', [AuthController::class, 'logout'])->name('admin.log
 |--------------------------------------------------------------------------
 */
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     // Events CRUD
     Route::get('/events', [AdminEventController::class, 'index'])->name('events');
     Route::get('/events/create', [AdminEventController::class, 'create'])->name('events.create');
@@ -41,17 +40,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/events/{event}/edit', [AdminEventController::class, 'edit'])->name('events.edit');
     Route::put('/events/{event}', [AdminEventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event}', [AdminEventController::class, 'destroy'])->name('events.destroy');
-
-    // Categories Management (Fixed Name for Sidebar)
+    // Categories Management
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
     Route::get('/categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
-    // Nominees Management (Fixed Name for Sidebar)
+    // Nominees Management
     Route::get('/nominees', [AdminNomineeController::class, 'index'])->name('nominees');
     Route::post('/nominees', [AdminNomineeController::class, 'store'])->name('nominees.store');
     Route::delete('/nominees/{id}', [AdminNomineeController::class, 'destroy'])->name('nominees.destroy');
-
     // Profile & User Management
     Route::get('/profile', [AdminController::class, 'editProfile'])->name('profile');
     Route::post('/profile', [AdminController::class, 'updateProfile'])->name('profile.update');
@@ -64,34 +60,42 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 | Website Routes (Public)
 |--------------------------------------------------------------------------
 */
-
 // Home
 Route::get('/', [EventController::class, 'home'])->name('home');
 Route::get('/home', [EventController::class, 'home']);
-
 // Public Categories Page
 Route::get('/categories', [EventController::class, 'categoriesPage'])->name('categories.index');
-
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
-
-// About & Contact (FIXED: Using Route::view for static views)
+// About & Contact
 Route::view('/about', 'events.about')->name('about');
 Route::view('/contact', 'events.contact')->name('contact');
-
 // Nomination logic
 Route::get('/nominations', [NominationController::class, 'index'])->name('nominations.index');
 Route::get('/nomination', [NominationController::class, 'create'])->name('nomination.create');
 Route::post('/nomination', [NominationController::class, 'store'])->name('nomination.store');
-
 // Nominate by category (slug)
 Route::get('/nomination/{slug}', [EventController::class, 'nominateCategory'])->name('nominate');
-
 // Payment
 Route::get('/nomination/payment/{nominee_id}', function($nominee_id){
     $nominee = \App\Models\Nomination::findOrFail($nominee_id);
     return view('events.nomination_payment', compact('nominee'));
 })->name('nomination.pay');
-
 Route::post('/nomination/payment/{nominee_id}', [NominationController::class, 'processPayment'])->name('nomination.pay.process');
+
+// Ajax Account Routes
+Route::post('/account/ajax-login', [AccountAjaxController::class, 'login'])->name('account.ajax-login');
+Route::post('/account/ajax-register', [AccountAjaxController::class, 'register'])->name('account.ajax-register');
+
+/*
+|--------------------------------------------------------------------------
+| Legal Pages
+|--------------------------------------------------------------------------
+*/
+Route::view('/privacy', 'events.privacy')->name('privacy');
+Route::view('/terms', 'events.terms')->name('terms');
+Route::view('/cookie-policy', 'events.cookie')->name('cookie');
+
+Route::get('/contact', [App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
