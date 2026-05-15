@@ -1298,7 +1298,7 @@ form.addEventListener('submit', function (e) {
     const subSelect = document.getElementById('sub-category');
 
     mainSelect.addEventListener('change', function() {
-        const subs = categoryData[this.value]?.sub_categories || [];
+        const subs = categoryData[this.value]?.subcategories || [];
         subSelect.innerHTML = '<option value="" disabled selected>Choose Sub-Category</option>';
         subs.forEach(sub => {
             const opt = document.createElement('option');
@@ -1341,8 +1341,8 @@ form.addEventListener('submit', function (e) {
             alert('Only JPG, PNG, GIF and PDF files are allowed.');
             return;
         }
-        if (file.size > 50 * 1024 * 1024) {
-            alert('File must be smaller than 50MB.');
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File must be smaller than 2MB.');
             return;
         }
 

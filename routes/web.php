@@ -75,6 +75,7 @@ Route::view('/contact', 'events.contact')->name('contact');
 Route::get('/nominations', [NominationController::class, 'index'])->name('nominations.index');
 Route::get('/nomination', [NominationController::class, 'create'])->name('nomination.create');
 Route::post('/nomination', [NominationController::class, 'store'])->name('nomination.store');
+Route::get('/nomination/thank-you', [NominationController::class, 'thankYou'])->name('nomination.thankyou');
 // Nominate by category (slug)
 Route::get('/nomination/{slug}', [EventController::class, 'nominateCategory'])->name('nominate');
 // Payment
